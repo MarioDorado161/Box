@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>A Unique Experience</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Open+Sans:wght@300;400&display=swap" rel="stylesheet">
+
+  <style>
+
+
+.experience-section {
+  background-color: #0e0d0d;
+  color: #f5e8d7;
+  font-family: 'Open Sans', sans-serif;
+  overflow-x: hidden;
+  text-align: center;
+  padding: 100px 0 0;
+  position: relative;
+}
+
+.icons {
+  font-size: 1.2rem;
+  letter-spacing: 10px;
+  color: #d7c3a4;
+  margin-bottom: 15px;
+}
+
+.experience-section h1 {
+  font-family: 'Cinzel', serif;
+  font-size: 3.2rem;
+  line-height: 1.2;
+  color: #f1e7d2;
+  margin-bottom: 15px;
+}
+
+.experience-section p {
+  color: #d7c3a4;
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 60px;
+}
+
+/* ----- Sliders ----- */
+.slider-container {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  height: 550px;
+}
+
+.slider {
+  display: flex;
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+}
+
+.slide-track {
+  display: flex;
+  animation: scroll 40s linear infinite;
+}
+
+.slider-bottom .slide-track {
+  animation: scroll-reverse 40s linear infinite;
+}
+
+.slide-track img {
+  width: 350px;
+  height: 250px;
+  object-fit: cover;
+  margin: 0 10px;
+  border-radius: 10px;
+  transition: transform 0.4s ease;
+}
+
+.slide-track img:hover {
+  transform: scale(1.05);
+}
+
+/* ----- Botón central ----- */
+.explore-btn {
+  position: absolute;
+  top: 47%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #f1d5a1;
+  color: #000;
+  border: none;
+  padding: 14px 40px;
+  font-family: 'Cinzel', serif;
+  font-weight: 600;
+  font-size: 0.9rem;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 10;
+}
+
+.explore-btn:hover {
+  background: #eac47a;
+  transform: translate(-50%, -50%) scale(1.05);
+}
+
+/* ----- Gradientes de difuminado ----- */
+.fade {
+  position: absolute;
+  pointer-events: none;
+  z-index: 9;
+}
+
+.fade-top {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 80px;
+  background: linear-gradient(to bottom, rgba(14, 13, 13, 1), rgba(14, 13, 13, 0));
+}
+
+.fade-bottom {
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 80px;
+  background: linear-gradient(to top, rgba(14, 13, 13, 1), rgba(14, 13, 13, 0));
+}
+
+.fade-left {
+  top: 0;
+  left: 0;
+  width: 100px;
+  height: 100%;
+  background: linear-gradient(to right, rgba(14, 13, 13, 1), rgba(14, 13, 13, 0));
+}
+
+.fade-right {
+  top: 0;
+  right: 0;
+  width: 100px;
+  height: 100%;
+  background: linear-gradient(to left, rgba(14, 13, 13, 1), rgba(14, 13, 13, 0));
+}
+
+/* ----- Animaciones infinitas ----- */
+@keyframes scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes scroll-reverse {
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
+}
+
+/* ----- Responsive ----- */
+@media (max-width: 768px) {
+  h1 { font-size: 2.2rem; }
+  .slide-track img { width: 250px; height: 180px; }
+  .explore-btn { padding: 10px 28px; font-size: 0.8rem; top: 33%; }
+  .fade-left, .fade-right { width: 60px; }
+}
+  </style>
+</head>
+<body>
+
+  <section class="experience-section">
+    <div class="experience-content">
+      <div class="icons">✽ ✽ ✽</div>
+      <h1>A UNIQUE<br>EXPERIENCE</h1>
+      <p>Redefining the way you experience sushi, bringing<br>creativity and bold flavors to every bite.</p>
+    </div>
+
+    <div class="slider-container">
+      <div class="fade fade-top"></div>
+      <div class="fade fade-bottom"></div>
+      <div class="fade fade-left"></div>
+      <div class="fade fade-right"></div>
+
+      <!-- Slider superior -->
+      <div class="slider slider-top">
+        <div class="slide-track">
+        <img src="https://scontent-mad1-1.xx.fbcdn.net/v/t1.6435-9/56742663_2115045315282752_8879660939620646912_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=833d8c&_nc_ohc=CNGZabldDRQQ7kNvwEFDfb-&_nc_oc=AdlVTbqwe4zlqa696m4x7j71OKJr1MiodHo1HvO-jXqCSd8MLIY2Erd1v0ilIep_8LY&_nc_zt=23&_nc_ht=scontent-mad1-1.xx&_nc_gid=Zu_l2z0MYP4V0ipR5dR-wg&oh=00_AfeWzYIY4ycDehBegrudPk5tbQXjKcioh0W_3BzfANwvKA&oe=691DB047" alt="Sushi rolls on plate">
+        <img src="https://scontent-mad2-1.xx.fbcdn.net/v/t1.6435-9/56970942_2115045285282755_5360272472790794240_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=833d8c&_nc_ohc=DHFU0q4IYVMQ7kNvwE6ZblQ&_nc_oc=Adl4VU-0yu7nN__XH-iiR2FUy1JAq1YPELUQz_svlbONulwCiwXfQ3gwRMqVBMnzrU4&_nc_zt=23&_nc_ht=scontent-mad2-1.xx&_nc_gid=a0bk4thGbkoZHKiUkz4FtQ&oh=00_AffoCiDM2gcL_CmkcZkXtmMlwkfZ-bAafrwnb37LuNadgg&oe=691D7D1C" alt="Chef preparing sushi">
+        <img src="https://scontent-mad2-1.xx.fbcdn.net/v/t1.6435-9/177941208_3866034763517123_7445427403526443622_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=833d8c&_nc_ohc=1_VjAhUMa2wQ7kNvwGPUcvn&_nc_oc=AdnARHB35HZ91qTnvtvQVZPpBtg49mLRMkwzLtnMrsnTAHvdPWd6qtzaKEZifHp7Sic&_nc_zt=23&_nc_ht=scontent-mad2-1.xx&_nc_gid=-w8TgAVyu5jExB3mqIenOw&oh=00_AffTRcpLEF_xbQl3YIzG5mGTWn7-8OLwd39kfBjKK1AizQ&oe=691DA358" alt="Sushi table set">
+        <img src="https://scontent-mad2-1.xx.fbcdn.net/v/t1.6435-9/53155026_2076582305795720_6575548003363323904_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=833d8c&_nc_ohc=kMXXodVQQAYQ7kNvwGqXYiN&_nc_oc=Adlwv7xxueD9mDBJGXWP74KJuULx5JELenp9FxzER33o1E82xz2g6SlFwASVBqUNrBA&_nc_zt=23&_nc_ht=scontent-mad2-1.xx&_nc_gid=rE_E7PB_GkmgWQ4OX_imxw&oh=00_Afe46-3fQaziwPxP94iqlDtlyWaR4XfrB4Cxpzgpv13mJg&oe=691D855D" alt="Chopsticks with sushi">
+        <img src="https://scontent-mad2-1.xx.fbcdn.net/v/t1.6435-9/53389156_2076591742461443_2343671350285041664_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=833d8c&_nc_ohc=v2yYzxD6mHMQ7kNvwGlHinQ&_nc_oc=Adn0vIx7hAlhbsiUety-RTyIw7-aqQT4Vwu4G_RoVDXnLocU3fRQzmRxYoMBnuODjtw&_nc_zt=23&_nc_ht=scontent-mad2-1.xx&_nc_gid=1O8O8rnHPM8eLJRtR6u14g&oh=00_Afdre6YUzyzGKD08nLIcYUSjhQ23Ca1bOPx03IzLtyjoig&oe=691D83ED" alt="Sushi platter assorted">
+        <img src="https://scontent-mad2-1.xx.fbcdn.net/v/t1.6435-9/56500730_2115045265282757_9156627145563308032_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=833d8c&_nc_ohc=Pwq0k1cB9OAQ7kNvwEyBJf5&_nc_oc=Adl2ostOi7hk6zAobyf29bNYlxvYstA11XQsrvRm9pNHNZ5rPWi-aiyiue5JTCjCdMg&_nc_zt=23&_nc_ht=scontent-mad2-1.xx&_nc_gid=fgyeb21PLQqfJ9rplHoSmQ&oh=00_Afea_kkc-IANMSNrZh8-8xLq8gC8bJ0PEAhpcQ5lPxMNSg&oe=691D8898" alt="Japanese restaurant interior">
+        <img src="https://scontent-mad1-1.xx.fbcdn.net/v/t39.30808-6/513552630_9992546360865902_2391471073914980114_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=833d8c&_nc_ohc=LtWUZFtZTiEQ7kNvwGOwJth&_nc_oc=AdlQdfeTbvYiw2Tup2c6hl6KgDROMXiUn61CXnCfhdi9gkllVxHBLN0keRwpuIUzRQM&_nc_zt=23&_nc_ht=scontent-mad1-1.xx&_nc_gid=caWmX2dIxhQbvo7gGtiqfw&oh=00_AfddB8sFcDOh2Kmqy9L5GdI6-SBEnYLDO2dD7AR6bFK0hg&oe=68FC0444" alt="Close-up of sushi nigiri">
+
+        <!-- Duplicado para bucle infinito -->
+        <img src="https://scontent-mad2-1.xx.fbcdn.net/v/t39.30808-6/502375997_9956963511090854_6806494177240757687_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=833d8c&_nc_ohc=tGhLE9gltLEQ7kNvwGJUozu&_nc_oc=AdlcjRIpmnxgMyvdphezD0UDHim0ztsGOaCwhI7tvnJPssEyu5rV3jQKjyhuEb0nytk&_nc_zt=23&_nc_ht=scontent-mad2-1.xx&_nc_gid=v1i_Fasf_qMWaF6B0ACvTQ&oh=00_AfcQfrcsUmL6hL26mftWfXkR71OtVlpxj98eszVctE6GWw&oe=68FBE3AA" alt="Sushi rolls on plate">
+        <img src="https://scontent-mad2-1.xx.fbcdn.net/v/t39.30808-6/509358665_9949532531833952_5893051607400321900_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=0b6b33&_nc_ohc=94K3UICyAgsQ7kNvwHMaQ99&_nc_oc=Adm5iesRefhW2EBtFnJLVIGy4Yj1A_MHDL7mcBaKAiBnsHUZYf0sEQmlLIyPixoiczE&_nc_zt=23&_nc_ht=scontent-mad2-1.xx&_nc_gid=M6JmEvfQhLdzQIy7VsYD7w&oh=00_AfeRcMv-3IHvz1dD8VfcVNbnWVnu8_15zjZvKdr5WpMICA&oe=68FC12C0" alt="Chef preparing sushi">
+        <img src="https://scontent-mad1-1.xx.fbcdn.net/v/t39.30808-6/508688225_9933718570082015_2773800851248609002_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=833d8c&_nc_ohc=k-SoTXrmtfgQ7kNvwHHSKxs&_nc_oc=AdmEEsAAkx6Fk7PtymAyBJHbvQbbDruRmMLXcHr1cTZJpc6x0EQNQWdUoiq2QnhQ9A4&_nc_zt=23&_nc_ht=scontent-mad1-1.xx&_nc_gid=PYus1yW1Fm3gF_ReHBYMWQ&oh=00_Afepvq8Jn-JnHLPtNbotKbs7hK2Vs_G93RBtd6k66U6rjw&oe=68FBFA97" alt="Sushi table set">
+        <img src="https://scontent-mad1-1.xx.fbcdn.net/v/t39.30808-6/508183281_9933718530082019_7064172611021104261_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=833d8c&_nc_ohc=hBsfp7QO0dgQ7kNvwG8FZYw&_nc_oc=AdlrenIPijuOEDz3Olln6E8CHUPKF8qHB-Sw_M116AC-X6wUsIa1zTZOD97dXjgWr4Q&_nc_zt=23&_nc_ht=scontent-mad1-1.xx&_nc_gid=YWk8XuzITT_AZQ2xWyGyXA&oh=00_AfcxHGuSvHWa75EewimmgQLvRoEE3MPlEz4a-vZHlS6c7g&oe=68FBE140" alt="Chopsticks with sushi">
+        <img src="https://scontent-mad2-1.xx.fbcdn.net/v/t39.30808-6/509266402_9951740278279844_1798902086077350695_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=0b6b33&_nc_ohc=l5WaK78LJjYQ7kNvwEquBV4&_nc_oc=AdnD1_nx8PxX64SEUARil2hm4FPj2zOMqTUoZV46hDjIqwCiDSCIKjHyNCPK7wif6Rw&_nc_zt=23&_nc_ht=scontent-mad2-1.xx&_nc_gid=OTXqn9cRsvHTtQ33JHrtnA&oh=00_Afdre_dIKRfZ6Gw-jJZCr7RLzwPxl94nMDJv7mjiYh5rEw&oe=68FBF63D" alt="Sushi platter assorted">
+        <img src="https://scontent-mad2-1.xx.fbcdn.net/v/t39.30808-6/508737154_9956963367757535_5809832458991124778_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=833d8c&_nc_ohc=FDvpsiHexB8Q7kNvwFLUiqI&_nc_oc=AdlvlzbsnLFZkPrbNhyuoltWTFRElN93YDS_b570aIDB5Dqi34O9aSFrFsGNuIDGB6E&_nc_zt=23&_nc_ht=scontent-mad2-1.xx&_nc_gid=3G3KPIvEUPfQuarXROu49g&oh=00_Afe4VlNmPt8UkdQBUczBZbV6UPkpRbSu7XSXTA_fsJNAhg&oe=68FC0815" alt="Japanese restaurant interior">
+        <img src="https://scontent-mad2-1.xx.fbcdn.net/v/t39.30808-6/513441274_9991228610997677_1805837322368800801_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=833d8c&_nc_ohc=PJFMYdddg2YQ7kNvwFBdDBj&_nc_oc=Adk0MBCk9z948f-bkSeC374uyoQLkcO2MODtfO0LYTcGVFlmXhFpNRi79zX4UxAG8Lg&_nc_zt=23&_nc_ht=scontent-mad2-1.xx&_nc_gid=vON3tN5mbZD_EA793wG0PA&oh=00_AffS_bjEWXgT3DNpgALZWNwVH7SkTB7pIP6M3MoYfh5d6w&oe=68FC13A0" alt="Close-up of sushi nigiri">
+        </div>
+
+      </div>
+
+      <!-- Botón -->
+      <button class="explore-btn">EXPLORE MENU</button>
+
+      <!-- Slider inferior -->
+      <div class="slider slider-bottom" style="padding-top: 15px;">
+      <div class="slide-track">
+        <img src="https://scontent-mad1-1.xx.fbcdn.net/v/t1.6435-9/56742663_2115045315282752_8879660939620646912_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=833d8c&_nc_ohc=CNGZabldDRQQ7kNvwEFDfb-&_nc_oc=AdlVTbqwe4zlqa696m4x7j71OKJr1MiodHo1HvO-jXqCSd8MLIY2Erd1v0ilIep_8LY&_nc_zt=23&_nc_ht=scontent-mad1-1.xx&_nc_gid=Zu_l2z0MYP4V0ipR5dR-wg&oh=00_AfeWzYIY4ycDehBegrudPk5tbQXjKcioh0W_3BzfANwvKA&oe=691DB047" alt="Sushi rolls on plate">
+        <img src="https://scontent-mad2-1.xx.fbcdn.net/v/t1.6435-9/56970942_2115045285282755_5360272472790794240_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=833d8c&_nc_ohc=DHFU0q4IYVMQ7kNvwE6ZblQ&_nc_oc=Adl4VU-0yu7nN__XH-iiR2FUy1JAq1YPELUQz_svlbONulwCiwXfQ3gwRMqVBMnzrU4&_nc_zt=23&_nc_ht=scontent-mad2-1.xx&_nc_gid=a0bk4thGbkoZHKiUkz4FtQ&oh=00_AffoCiDM2gcL_CmkcZkXtmMlwkfZ-bAafrwnb37LuNadgg&oe=691D7D1C" alt="Chef preparing sushi">
+        <img src="https://scontent-mad2-1.xx.fbcdn.net/v/t1.6435-9/177941208_3866034763517123_7445427403526443622_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=833d8c&_nc_ohc=1_VjAhUMa2wQ7kNvwGPUcvn&_nc_oc=AdnARHB35HZ91qTnvtvQVZPpBtg49mLRMkwzLtnMrsnTAHvdPWd6qtzaKEZifHp7Sic&_nc_zt=23&_nc_ht=scontent-mad2-1.xx&_nc_gid=-w8TgAVyu5jExB3mqIenOw&oh=00_AffTRcpLEF_xbQl3YIzG5mGTWn7-8OLwd39kfBjKK1AizQ&oe=691DA358" alt="Sushi table set">
+        <img src="https://scontent-mad2-1.xx.fbcdn.net/v/t1.6435-9/53155026_2076582305795720_6575548003363323904_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=833d8c&_nc_ohc=kMXXodVQQAYQ7kNvwGqXYiN&_nc_oc=Adlwv7xxueD9mDBJGXWP74KJuULx5JELenp9FxzER33o1E82xz2g6SlFwASVBqUNrBA&_nc_zt=23&_nc_ht=scontent-mad2-1.xx&_nc_gid=rE_E7PB_GkmgWQ4OX_imxw&oh=00_Afe46-3fQaziwPxP94iqlDtlyWaR4XfrB4Cxpzgpv13mJg&oe=691D855D" alt="Chopsticks with sushi">
+        <img src="https://scontent-mad2-1.xx.fbcdn.net/v/t1.6435-9/53389156_2076591742461443_2343671350285041664_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=833d8c&_nc_ohc=v2yYzxD6mHMQ7kNvwGlHinQ&_nc_oc=Adn0vIx7hAlhbsiUety-RTyIw7-aqQT4Vwu4G_RoVDXnLocU3fRQzmRxYoMBnuODjtw&_nc_zt=23&_nc_ht=scontent-mad2-1.xx&_nc_gid=1O8O8rnHPM8eLJRtR6u14g&oh=00_Afdre6YUzyzGKD08nLIcYUSjhQ23Ca1bOPx03IzLtyjoig&oe=691D83ED" alt="Sushi platter assorted">
+        <img src="https://scontent-mad2-1.xx.fbcdn.net/v/t1.6435-9/56500730_2115045265282757_9156627145563308032_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=833d8c&_nc_ohc=Pwq0k1cB9OAQ7kNvwEyBJf5&_nc_oc=Adl2ostOi7hk6zAobyf29bNYlxvYstA11XQsrvRm9pNHNZ5rPWi-aiyiue5JTCjCdMg&_nc_zt=23&_nc_ht=scontent-mad2-1.xx&_nc_gid=fgyeb21PLQqfJ9rplHoSmQ&oh=00_Afea_kkc-IANMSNrZh8-8xLq8gC8bJ0PEAhpcQ5lPxMNSg&oe=691D8898" alt="Japanese restaurant interior">
+        <img src="https://scontent-mad1-1.xx.fbcdn.net/v/t39.30808-6/513552630_9992546360865902_2391471073914980114_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=833d8c&_nc_ohc=LtWUZFtZTiEQ7kNvwGOwJth&_nc_oc=AdlQdfeTbvYiw2Tup2c6hl6KgDROMXiUn61CXnCfhdi9gkllVxHBLN0keRwpuIUzRQM&_nc_zt=23&_nc_ht=scontent-mad1-1.xx&_nc_gid=caWmX2dIxhQbvo7gGtiqfw&oh=00_AfddB8sFcDOh2Kmqy9L5GdI6-SBEnYLDO2dD7AR6bFK0hg&oe=68FC0444" alt="Close-up of sushi nigiri">
+
+        <!-- Duplicado para bucle infinito -->
+        <img src="https://scontent-mad2-1.xx.fbcdn.net/v/t39.30808-6/502375997_9956963511090854_6806494177240757687_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=833d8c&_nc_ohc=tGhLE9gltLEQ7kNvwGJUozu&_nc_oc=AdlcjRIpmnxgMyvdphezD0UDHim0ztsGOaCwhI7tvnJPssEyu5rV3jQKjyhuEb0nytk&_nc_zt=23&_nc_ht=scontent-mad2-1.xx&_nc_gid=v1i_Fasf_qMWaF6B0ACvTQ&oh=00_AfcQfrcsUmL6hL26mftWfXkR71OtVlpxj98eszVctE6GWw&oe=68FBE3AA" alt="Sushi rolls on plate">
+        <img src="https://scontent-mad2-1.xx.fbcdn.net/v/t39.30808-6/509358665_9949532531833952_5893051607400321900_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=0b6b33&_nc_ohc=94K3UICyAgsQ7kNvwHMaQ99&_nc_oc=Adm5iesRefhW2EBtFnJLVIGy4Yj1A_MHDL7mcBaKAiBnsHUZYf0sEQmlLIyPixoiczE&_nc_zt=23&_nc_ht=scontent-mad2-1.xx&_nc_gid=M6JmEvfQhLdzQIy7VsYD7w&oh=00_AfeRcMv-3IHvz1dD8VfcVNbnWVnu8_15zjZvKdr5WpMICA&oe=68FC12C0" alt="Chef preparing sushi">
+        <img src="https://scontent-mad1-1.xx.fbcdn.net/v/t39.30808-6/508688225_9933718570082015_2773800851248609002_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=833d8c&_nc_ohc=k-SoTXrmtfgQ7kNvwHHSKxs&_nc_oc=AdmEEsAAkx6Fk7PtymAyBJHbvQbbDruRmMLXcHr1cTZJpc6x0EQNQWdUoiq2QnhQ9A4&_nc_zt=23&_nc_ht=scontent-mad1-1.xx&_nc_gid=PYus1yW1Fm3gF_ReHBYMWQ&oh=00_Afepvq8Jn-JnHLPtNbotKbs7hK2Vs_G93RBtd6k66U6rjw&oe=68FBFA97" alt="Sushi table set">
+        <img src="https://scontent-mad1-1.xx.fbcdn.net/v/t39.30808-6/508183281_9933718530082019_7064172611021104261_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=833d8c&_nc_ohc=hBsfp7QO0dgQ7kNvwG8FZYw&_nc_oc=AdlrenIPijuOEDz3Olln6E8CHUPKF8qHB-Sw_M116AC-X6wUsIa1zTZOD97dXjgWr4Q&_nc_zt=23&_nc_ht=scontent-mad1-1.xx&_nc_gid=YWk8XuzITT_AZQ2xWyGyXA&oh=00_AfcxHGuSvHWa75EewimmgQLvRoEE3MPlEz4a-vZHlS6c7g&oe=68FBE140" alt="Chopsticks with sushi">
+        <img src="https://scontent-mad2-1.xx.fbcdn.net/v/t39.30808-6/509266402_9951740278279844_1798902086077350695_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=0b6b33&_nc_ohc=l5WaK78LJjYQ7kNvwEquBV4&_nc_oc=AdnD1_nx8PxX64SEUARil2hm4FPj2zOMqTUoZV46hDjIqwCiDSCIKjHyNCPK7wif6Rw&_nc_zt=23&_nc_ht=scontent-mad2-1.xx&_nc_gid=OTXqn9cRsvHTtQ33JHrtnA&oh=00_Afdre_dIKRfZ6Gw-jJZCr7RLzwPxl94nMDJv7mjiYh5rEw&oe=68FBF63D" alt="Sushi platter assorted">
+        <img src="https://scontent-mad2-1.xx.fbcdn.net/v/t39.30808-6/508737154_9956963367757535_5809832458991124778_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=833d8c&_nc_ohc=FDvpsiHexB8Q7kNvwFLUiqI&_nc_oc=AdlvlzbsnLFZkPrbNhyuoltWTFRElN93YDS_b570aIDB5Dqi34O9aSFrFsGNuIDGB6E&_nc_zt=23&_nc_ht=scontent-mad2-1.xx&_nc_gid=3G3KPIvEUPfQuarXROu49g&oh=00_Afe4VlNmPt8UkdQBUczBZbV6UPkpRbSu7XSXTA_fsJNAhg&oe=68FC0815" alt="Japanese restaurant interior">
+        <img src="https://scontent-mad2-1.xx.fbcdn.net/v/t39.30808-6/513441274_9991228610997677_1805837322368800801_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=833d8c&_nc_ohc=PJFMYdddg2YQ7kNvwFBdDBj&_nc_oc=Adk0MBCk9z948f-bkSeC374uyoQLkcO2MODtfO0LYTcGVFlmXhFpNRi79zX4UxAG8Lg&_nc_zt=23&_nc_ht=scontent-mad2-1.xx&_nc_gid=vON3tN5mbZD_EA793wG0PA&oh=00_AffS_bjEWXgT3DNpgALZWNwVH7SkTB7pIP6M3MoYfh5d6w&oe=68FC13A0" alt="Close-up of sushi nigiri">
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <script>
+  // Pausar animación cuando la pestaña no está activa (ahorro de recursos)
+  document.addEventListener("visibilitychange", () => {
+    const sliders = document.querySelectorAll(".slide-track");
+    sliders.forEach(track => {
+      track.style.animationPlayState = document.hidden ? "paused" : "running";
+    });
+  });
+  </script>
+</body>
+</html>
