@@ -3358,9 +3358,10 @@ html.loaded #cookie-bar a {
 
 /* ----- Responsive ----- */
 @media (max-width: 768px) {
-  h1 { font-size: 2.2rem; }
+  .experience-content h1 { font-size: 2.2rem; }
+  .experience-content p{margin: 10px;}
   .slide-track img { width: 250px; height: 180px; }
-  .explore-btn { padding: 20px 28px; font-size: 0.8rem; top: 47%; }
+  .explore-btn { padding: 20px 28px; font-size: 0.8rem; top: 47%; font-weight: 400; }
   .fade-left, .fade-right { width: 60px; }
   .slider-container{height: 400px;}
 }
@@ -3368,7 +3369,7 @@ html.loaded #cookie-bar a {
 @media (min-width: 1024px) {
   .boton {
     transform: translateY(-35px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    margin-top: 70px;
   }
 }
 

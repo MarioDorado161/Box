@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Menú Restaurante</title>
+  <link rel="stylesheet" href="styles.css" />
+
+
+  <style>
+    body{
+  font-family: "Arial", sans-serif;
+  margin: 0;
+  padding: 0;
+  color: #fff;
+  background: radial-gradient(circle at 20% 20%, rgba(255,255,255,0.05) 0%, transparent 50%),
+              radial-gradient(circle at 80% 80%, rgba(255,255,255,0.03) 0%, transparent 60%),
+              linear-gradient(120deg, rgba(0,0,0,0.4) 0%, rgba(255, 255, 255, 0.7) 100%),
+              repeating-linear-gradient(
+                90deg,
+                #1a1a1a 0%,
+                #1a1a1a 3%,
+                #2b1a26 5%,
+                #2c1e34 9%,
+                #342144 13%,
+                #32234d 18%,
+                #272b4b 23%,
+                #1d2f47 28%,
+                #162d3d 33%,
+                #111e2e 38%,
+                #1a1a1a 45%
+              )!important;
+  background-blend-mode: overlay, soft-light, multiply, normal;
+  background-size: 400% 100%;
+  animation: gradientMove 20s ease infinite ; 
+    }
+
+
+.menu-pagina1 {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 30px;
+  max-width: 1400px;
+  margin: 0 auto -20px auto;
+  padding: 40px 20px;
+}
+
+.menu-left {
+  flex: 2;
+  min-width: 350px;
+  background: rgba(0, 0, 0, 0.55);
+  border-radius: 10px;
+  padding: 20px 30px;
+  color: white;
+}
+
+.menu-right {
+  flex: 1;
+  min-width: 300px;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+  text-align: center;
+  color: #fff;
+  padding: 30px 20px;
+}
+
+.menu-section h2 {
+  border-bottom: 2px solid #00aaff;
+  padding-bottom: 6px;
+  margin-top: 25px;
+  margin-bottom: 12px;
+  text-transform: uppercase;
+  font-size: 1.6rem;
+}
+
+.menu-section ul {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 25px 0;
+}
+
+.menu-section li {
+  font-size: 0.95rem;
+  padding: 4px 0;
+}
+
+.menu-section .azul {
+  background-color: #00aaff;
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+
+.destacado {
+  display: inline-block;
+  background-color: #ff4b2b;
+  color: #fff;
+  font-weight: bold;
+  padding: 6px 10px;
+  border-radius: 6px;
+  margin-top: 8px;
+}
+
+.logo-ejemplo,
+.qr-ejemplo {
+
+
+  border-radius: 10px;
+  padding: 40px 20px;
+  margin: 20px 0;
+  font-size: 0.9rem;
+}
+
+.promo h3 {
+  font-size: 1.4rem;
+  color: #00aaff;
+  margin-bottom: 5px;
+}
+
+.promo p {
+  font-size: 0.9rem;
+  color: #eee;
+}
+
+.contacto h4 {
+  color: #00aaff;
+  font-size: 1.1rem;
+  margin-bottom: 5px;
+}
+
+.contacto p {
+  font-size: 0.9rem;
+  margin: 5px 0;
+}
+
+.tel {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #ffcc00;
+}
+
+@media (max-width: 900px) {
+  .menu-pagina1 {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .menu-left, .menu-right {
+    width: 95%;
+  }
+
+  .menu-right {
+    margin-top: 20px;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+    .menu-container {
+
+  max-width: 1420px;
+  color: #fff;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+    display: flex;
+  flex-wrap: wrap;
+  top: 300px;
+  margin: auto;
+  padding: 20px;
+}
+
+
+.menu-column {
+  flex: 1;
+  min-width: 320px;
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.5);
+  margin: 10px;
+  border-radius: 10px;
+
+}
+
+.menu-container h2 {
+  border-bottom: 2px solid #00aaff;
+  padding-bottom: 5px;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  font-size: 1.6rem;
+}
+
+.menu-container ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+    margin-bottom: 30px;
+}
+
+.menu-container li {
+  padding: 4px 0;
+  font-size: 0.95rem;
+}
+
+.price-line {
+  color: #ffcc00;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.note {
+  font-size: 0.85rem;
+  color: #ccc;
+  margin-top: 8px;
+}
+
+@media (max-width: 768px) {
+  .menu-container {
+    flex-direction: column;
+  }
+}
+.separator{
+    height: 200px;
+}
+  </style>
+  
+<link href="assets/css/content.css" rel="stylesheet" />
+</head>
+<body>
+
+    <header class="cabecera contenedor">
+      <div class="izquierda">
+        <a
+          href=""
+          class="logo transicion"
+          title="Rosvi Bar"
+          ><img
+            loading="lazy"
+            src="assets/img/BOWLING (1).png"
+            width="250"
+            height="185"
+            alt="Rosvi Bar"
+        /></a>
+      </div>
+      <div class="derecha">
+        <ul>
+          <li class="transicion">
+            <a
+              href=""
+              class="transicion"
+              title="Sobre nosotros"
+              >Sobre nosotros</a
+            >
+          </li>
+          <li class="transicion">
+            <a href="" class="transicion" title="Restaurante"
+              >Restaurante</a
+            >
+          </li>
+      <li class="transicion">
+            <a
+              href=""
+              class="transicion"
+              title="Bolera"
+              >Bolera</a
+            >
+          </li>
+          <li class="transicion">
+            <a
+              href=""
+              class="transicion"
+              title="Zona Infantil"
+              >Zona Infantil</a
+            >
+          </li>
+          <li class="transicion">
+            <a
+              href="carta.html"
+              class="transicion"
+              target="_blank"
+              title="Carta"
+              >Carta</a
+            >
+          </li>
+          <li class="transicion">
+            <a
+              href=""
+              class="transicion"
+              title="Contacto"
+              >Contacto</a
+            >
+          </li>
+        </ul>
+      </div>
+      <div class="limpia"></div>
+      <a href="#my-mmmenu" class="menu_ham transicion" title="menu"
+        >menu<span class="the_bars"></span
+      ></a>
+    </header>
+
+
+<div class="separator"></div>
+
+
+
+
+<!-- ==========================
+     PÁGINA 1 - NUEVA CARTA
+=========================== -->
+<div class="menu-pagina1">
+  <div class="menu-left">
+    <section class="menu-section">
+      <h2>SANDWICHES</h2>
+      <ul>
+        <li>MIXTO (jamón york y queso) ................................... 4,00 €</li>
+        <li>CUBANO (jamón york, queso y huevo) ............................ 5,00 €</li>
+        <li>VEGETAL ...................................................... 4,50 €</li>
+        <li>CLUB 2 PISOS CON PATATAS (pollo, bacón, tomate, lechuga, york, queso y mahonesa) .......... 7,00 €</li>
+      </ul>
+    </section>
+
+    <section class="menu-section">
+      <h2>BOCAPIZZAS</h2>
+      <ul>
+        <li>1. DE JAMÓN YORK</li>
+        <li>2. DE BACON</li>
+        <li>3. DE BARBACOA</li>
+        <li>4. DE ATÚN</li>
+      </ul>
+      <div class="destacado">4,50 €</div>
+    </section>
+
+    <section class="menu-section">
+      <h2>ENSALADAS</h2>
+      <ul>
+        <li>MIXTA (atún, huevo y espárragos) ............................. 8,00 €</li>
+        <li>CÉSAR (pollo crujiente, picatostes, parmesano y salsa César) ... 9,00 €</li>
+        <li>BOX (queso de cabra y confitura de tomate) .................... 10,00 €</li>
+        <li>ASADILLO CON VENTRESCA (mezclum, tomate y huevo duro) .......... 10,00 €</li>
+      </ul>
+    </section>
+
+    <section class="menu-section">
+      <h2 class="azul">NOVEDAD EN POSTRES</h2>
+      <ul>
+        <li>COPA BOX (brownie con helado de vainilla y chocolate caliente) ....... 6,00 €</li>
+        <li>TARTA DE QUESO (CASERA) (con bola de helado de pistacho y nata) ...... 6,00 €</li>
+        <li>QUESADA PASIEGA (CASERA) (con bola de helado de cheesecake y nata) ... 6,00 €</li>
+        <li>TORRIJA BRIOCHE (CASERA) (con crema chocolate blanco y helado oreo) .. 7,00 €</li>
+        <li>COMBO (4/6 personas) (brownie + tarta de queso + 4 bolas de helado) .. 17,00 €</li>
+        <li>COMBO 2 (brownie + tarta + quesada + 4 bolas de helado) .............. 20,00 €</li>
+        <li>BOLA HELADO ......................................................... 2,50 €</li>
+        <li>COPA CLÁSICA (3 sabores a elegir) .................................. 7,00 €</li>
+      </ul>
+    </section>
+
+    <section class="menu-section">
+      <h2>BATIDOS NATURALES</h2>
+      <p>FRESA, CHOCOLATE, VAINILLA, NATA Y LIMÓN, OREO</p>
+      <div class="destacado">7,00 €</div>
+    </section>
+  </div>
+
+  <div class="menu-right">
+    <div class="logo-ejemplo"><img src="http://bowlingbox.es/wp-content/uploads/2020/06/logo.gif" alt="" style="max-width: 200px;"></div>
+    <div class="promo">
+      <h3>BOX-KIDS</h3>
+      <p>¡CELEBRA TU CUMPLE!<br>De lunes a domingo con monitores titulados</p>
+    </div>
+    <div class="qr-ejemplo"><img src="assets/img/carta/qr.png" alt="" style="max-width: 200px;"></div>
+    <div class="contacto">
+      <h4>INFO + RESERVAS</h4>
+      <p>Celebraciones, Eventos, Reuniones, etc.</p>
+      <p class="tel">📞 650 884 851<br>📞 925 542 967</p>
+    </div>
+  </div>
+</div>
+<!-- Fin Página 1 -->
+
+
+
+
+
+
+
+
+
+
+
+
+  <div class="menu-container">
+    <!-- Columna Izquierda -->
+    <div class="menu-column left">
+      <section class="menu-section">
+        <h2>RACIONES</h2>
+        <ul>
+          <li>CHOPITOS .............................................. 13,00 €</li>
+          <li>GULAS CON GAMBAS ...................................... 15,00 €</li>
+          <li>CALAMARES ............................................. 13,00 €</li>
+          <li>SEPIA .................................................. 14,00 €</li>
+          <li>GAMBAS AL AJILLO ...................................... 14,00 €</li>
+          <li>PULPO A LA GALLEGA EN TABLA ............................ 18,00 €</li>
+          <li>FRITURA DE PESCADO ESPECIAL ............................ 12,00 €</li>
+          <li>SETAS CON GAMBAS ....................................... 12,00 €</li>
+          <li>CROQUETAS CASERAS (10 udes.) ........................... 12,00 €</li>
+          <li>MOELLEJAS .............................................. 12,00 €</li>
+          <li>FILETES DE VENAO PLANCHA ............................... 15,00 €</li>
+          <li>VENAO (BOX) ............................................ 13,00 €</li>
+          <li>CARCAMUSAS ............................................. 12,00 €</li>
+          <li>OREJAS ................................................. 12,00 €</li>
+          <li>SOLOMILLO CONFITADO A BAJA TEMPERATURA ................ 14,00 €</li>
+          <li>NUGGETS ................................................ 10,00 €</li>
+          <li>FINGERS ................................................ 10,00 €</li>
+        </ul>
+      </section>
+
+      <section class="menu-section">
+        <h2>HAMBURGUESAS</h2>
+        <ul>
+          <li>1. NORMAL .................................................. 6,50 €</li>
+          <li>2. POLLO ................................................... 6,50 €</li>
+          <li>3. YOGUI ................................................... 6,50 €</li>
+          <li>4. YOGUI EXTRA ............................................ 7,50 €</li>
+          <li>5. BUEY .................................................... 9,00 €</li>
+          <li>6. CORN-FLAKES ............................................ 9,00 €</li>
+          <li>7. SMASH CHEESE BURGUER .................................. 10,00 €</li>
+          <li>8. SMASH BURGUER CLÁSICA ................................ 10,00 €</li>
+          <li>9. LA MONTESA ............................................ 11,00 €</li>
+          <li>10. LA BACON BBQ ......................................... 11,00 €</li>
+        </ul>
+        <p class="note">* Todas las cajas incluyen patatas.<br>Extra bacon crujiente: 1,00 €</p>
+      </section>
+    </div>
+
+    <!-- Columna Derecha -->
+    <div class="menu-column right">
+      <section class="menu-section">
+        <h2>PULGAS Y BOCADILLOS</h2>
+        <p class="price-line">Pulga 4,80 € | Bocadillo 6,00 €</p>
+        <ul>
+          <li>1. ASADILLO, ATÚN, HUEVO Y MAHONESA</li>
+          <li>2. CALAMARES</li>
+          <li>3. ATÚN, ANCHOAS, BOQUERONES Y SALMÓN</li>
+          <li>4. BACON, LOMO, TOMATE Y QUESO</li>
+          <li>5. BACON, QUESO Y TOMATE</li>
+          <li>6. SALMÓN, TOMATE Y MAHONESA</li>
+          <li>7. TORTILLA FRANCESA CON ATÚN</li>
+          <li>8. LOMO PLANCHA, QUESO, TOMATE Y LECHUGA</li>
+          <li>9. TORTILLA FRANCESA CON JAMÓN SERRANO</li>
+          <li>10. PICADILLO DE VENAO CON SALSA DE SETAS</li>
+          <li>11. CRUJIENTE DE POLLO, BACON, LECHUGA Y MAHONESA</li>
+          <li>12. SOLOMILLO DE CEBÓN CON CEBOLLA CARAMELIZADA</li>
+          <li>13. LOMO, JAMÓN, PIMIENTOS, TOMATE Y MAHONESA</li>
+        </ul>
+        <p class="note">
+          Con * Pulga 5,00 € - Bocadillo 6,50 €<br>
+          Suplemento de patatas rizadas: 2,00 €
+        </p>
+      </section>
+
+      <section class="menu-section">
+        <h2>SARTENES</h2>
+        <ul>
+          <li>1. Patatas, huevos rotos y picadillo de venao</li>
+          <li>2. Patatas, huevos rotos y gulas</li>
+          <li>3. Patatas, huevos rotos y jamón</li>
+        </ul>
+        <p class="note">Suplemento pimiento: 0,50 €</p>
+      </section>
+
+      <section class="menu-section">
+        <h2>TOSTAS</h2>
+        <ul>
+          <li>1. Solomillo de cebón con salsa pimienta</li>
+          <li>2. Solomillo de cebón, cebolla caramelizada y parmesano rayado</li>
+          <li>3. Bacon y adobo queso parmesano rayado</li>
+          <li>4. Salmón, queso, anchoas y boquerones o gulas con gambas</li>
+        </ul>
+        <p class="note">Suplemento de queso de cabra: 2,00 €</p>
+      </section>
+
+      <section class="menu-section">
+        <h2>PATATAS</h2>
+        <ul>
+          <li>BOX (bacon y queso fundido) ............... 10,00 €</li>
+          <li>BRAVAS ........................................ 8,00 €</li>
+          <li>AMERICANAS .................................. 8,00 €</li>
+          <li>TABLA DE PATATAS (5 salsas) ................ 10,00 €</li>
+          <li>TABLA DE PATATAS (nuggets) ................ 11,00 €</li>
+          <li>TABLA DE PATATAS (fingers) ................ 11,00 €</li>
+        </ul>
+      </section>
+    </div>
+  </div>
+  <script>
+    function ajustarMenu() {
+  // Detectar si es móvil por ancho
+  const esMovil = window.innerWidth <= 768;
+
+  // Obtener todos los elementos li dentro del menú
+  const items = document.querySelectorAll('.menu-pagina1 .menu-section ul li, .menu-container ul li');
+
+  items.forEach(li => {
+    const textoCompleto = li.textContent.trim();
+
+    // Extraer precio con regex (último grupo de números con €)
+    const regex = /(.*?)\.{3,}\s*([\d,]+\s*€)$/;
+    const match = textoCompleto.match(regex);
+
+    if (match) {
+      const texto = match[1].trim();
+      const precio = match[2].trim();
+
+      // Limpiar contenido para reemplazar con estructura
+      li.textContent = '';
+
+      // Crear span para el texto
+      const spanTexto = document.createElement('span');
+      spanTexto.textContent = texto;
+      spanTexto.style.display = 'inline-block';
+
+      // Crear span para puntos
+      const spanPuntos = document.createElement('span');
+      spanPuntos.style.display = 'inline-block';
+      spanPuntos.style.whiteSpace = 'nowrap';
+      spanPuntos.style.margin = '0 5px';
+
+      // Crear span para precio
+      const spanPrecio = document.createElement('span');
+      spanPrecio.textContent = precio;
+      spanPrecio.style.display = 'inline-block';
+      spanPrecio.style.fontWeight = 'bold';
+      spanPrecio.style.color = '#ffcc00';
+
+      li.appendChild(spanTexto);
+      li.appendChild(spanPuntos);
+      li.appendChild(spanPrecio);
+
+      // Ahora calcular cuántos puntos caben (solo si no es móvil)
+      if (!esMovil) {
+        // Obtener anchos
+        const anchoLi = li.clientWidth;
+        const anchoTexto = spanTexto.offsetWidth;
+        const anchoPrecio = spanPrecio.offsetWidth;
+        const espacioDisponible = anchoLi - anchoTexto - anchoPrecio - 20; // 20px margen
+
+        // Medir ancho de un punto
+        spanPuntos.textContent = '.';
+        const anchoPunto = spanPuntos.offsetWidth;
+
+        // Calcular número de puntos que caben
+        const puntos = Math.floor(espacioDisponible / anchoPunto);
+
+        spanPuntos.textContent = '.'.repeat(puntos > 0 ? puntos : 0);
+
+        // Asegurar que todo queda en la misma línea
+        li.style.whiteSpace = 'nowrap';
+      } else {
+        // En móvil: no mostrar puntos y poner precio debajo
+        spanPuntos.textContent = '';
+        spanPrecio.style.display = 'block';
+        spanPrecio.style.marginTop = '4px';
+        li.style.whiteSpace = 'normal';
+      }
+    }
+  });
+}
+
+// Ejecutar al cargar y al cambiar tamaño ventana
+window.addEventListener('load', ajustarMenu);
+window.addEventListener('resize', ajustarMenu);
+
+  </script>
+</body>
+</html>

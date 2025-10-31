@@ -1,0 +1,1278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>classic kitchen - Food Menu</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      
+/* Fuentes y tipografía */
+body {
+    font-family: "GT Walsheim Pro", sans-serif;
+    color: #5c5a52;
+    background: #e7e2cf;
+    font-size: 1.4rem; /* antes 1.6rem */
+}
+
+h1, h2, h3, h4 {
+    font-family: "Reckless Neue", sans-serif;
+    color: #5c5a52;
+    text-transform: uppercase;
+}
+
+/* Food Cards */
+.food-card {
+    background-color: #fff;
+    border-radius: 15px;
+    overflow: hidden;
+    transition: all 0.4s ease;
+    box-shadow: 0 4px 12px rgba(92, 90, 82, 0.1);
+}
+
+.food-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 16px 24px rgba(92, 90, 82, 0.15);
+}
+
+.food-card img {
+    border-bottom: 1px solid #e7e2cf;
+    transition: transform 0.3s ease;
+}
+
+.food-card:hover img {
+    transform: scale(1.05);
+}
+
+/* Price Tag */
+.price-tag {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: #5c5a52;
+    color: #e7e2cf;
+    padding: 5px 10px; /* antes 6px 12px */
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 1.2rem; /* antes 1.4rem */
+    transition: all 0.3s ease;
+}
+
+.food-card:hover .price-tag {
+    background: #e7e2cf;
+    color: #5c5a52;
+    transform: scale(1.1);
+}
+
+/* Category Buttons */
+.category-btn {
+    font-family: "GT Walsheim Pro", sans-serif;
+    font-weight: 500;
+    color: #5c5a52;
+    background: #e7e2cf;
+    border: 2px solid #5c5a52;
+    font-size: 1.3rem; /* añadido */
+    padding: 0.6rem 2rem; /* ajustado */
+    transition: all 0.3s ease;
+    border-radius: 0px !important;
+}
+
+/* Estilo para botones no activos al hacer hover */
+.category-btn:not(.active):hover {
+    background: #e7e2cf;
+    color: #616161; /* gris para texto */
+    transform: scale(1.05);
+    box-shadow: 0 6px 12px rgba(92,90,82,0.15);
+}
+
+.category-btn:hover, .category-btn.active {
+    background: #5c5252;
+    color: #e7e2cf;
+    transform: scale(1.05);
+    box-shadow: 0 6px 12px rgba(92,90,82,0.15);
+}
+
+/* Section Titles */
+.menu-section h2 {
+    border-color: #5c5a52;
+    margin-bottom: 1.5rem; /* antes 2rem */
+    font-size: 2.2rem; /* antes 2.8rem */
+    position: relative;
+}
+
+.menu-section h2::after {
+
+}
+
+/* Food Card Text */
+.food-card h3 {
+    font-size: 1.5rem; /* antes 1.8rem */
+    font-weight: 700;
+    color: #5c5a52;
+    margin-bottom: 0.4rem; /* antes 0.5rem */
+}
+
+.food-card p {
+    color: #5c5a52;
+    font-weight: 400;
+    font-size: 1.3rem; /* antes 1.5rem */
+    line-height: 1.5; /* antes 1.6 */
+}
+
+/* Cart Modal */
+#cartModal {
+    background: rgba(92,90,82,0.95);
+}
+
+#cartModal .bg-white {
+    background: #e7e2cf;
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+#cartModal h3 {
+    color: #5c5a52;
+    font-size: 1.5rem; /* antes 1.8rem */
+}
+
+#cartModal button {
+    background: #5c5a52;
+    color: #e7e2cf;
+    font-size: 1.3rem; /* añadido */
+    padding: 0.6rem 2rem; /* ajustado */
+    transition: all 0.3s ease;
+}
+
+#cartModal button:hover {
+    background: #e7e2cf;
+    color: #5c5a52;
+    box-shadow: 0 6px 12px rgba(92,90,82,0.2);
+}
+
+/* Animaciones suaves */
+.animate-fadeInOut {
+    animation: fadeInOut 2.3s ease forwards;
+}
+
+@keyframes fadeInOut {
+    0% { opacity: 0; transform: translateY(-10px); }
+    10% { opacity: 1; transform: translateY(0); }
+    90% { opacity: 1; transform: translateY(0); }
+    100% { opacity: 0; transform: translateY(-10px); }
+}
+
+/* Responsive tweaks */
+@media (max-width: 768px) {
+    .food-card {
+        margin-bottom: 20px; /* antes 25px */
+    }
+}
+
+    </style>
+</head>
+<body class="pb-20">
+
+
+    <main class="container mx-auto px-4 mt-8">
+        <div class="text-center mb-12">
+                <!-- Logo -->
+    <img 
+      src="http://bowlingbox.es/wp-content/uploads/2020/06/logo.gif" 
+      alt="Logo del restaurante" 
+      class="mx-auto mb-6 w-24 h-24 object-contain drop-shadow-md transition-transform duration-300 hover:scale-105"
+    >
+            <h2 class="text-4xl font-bold mb-4" style="">NUESTRA CARTA</h2>
+            <p class="text-lg text-gray-600 max-w-2xl mx-auto">Ponemos a disposición de nuestros clientes una amplia y variada carta para intentar complacer todos los gustos.</p>
+        </div>
+    <div id="categoryMenu" class="menu-wrapper flex justify-center gap-3 mb-12">
+        <div class="menu-inner flex gap-3">
+            <button class="category-btn active bg-gray-200 hover:bg-bg-gray-200 text-grey  rounded-full" data-category="all">Todo</button>
+            <button class="category-btn bg hover:bg-gray-300  rounded-full" data-category="raciones">Raciones</button>
+            <button class="category-btn bg hover:bg-gray-300  rounded-full" data-category="burger">Hamburguesas</button>
+            <button class="category-btn bg hover:bg-gray-300  rounded-full" data-category="bocadillo">Bocadillos</button>
+            <button class="category-btn bg hover:bg-gray-300  rounded-full" data-category="sartenes">Sartenes</button>
+            <button class="category-btn bg hover:bg-gray-300  rounded-full" data-category="tostas">Tostas</button>
+            <button class="category-btn bg hover:bg-gray-300  rounded-full" data-category="patatas">Patatas</button>
+            <button class="category-btn bg hover:bg-gray-300  rounded-full" data-category="sandwich">Sandwiches</button>
+            <button class="category-btn bg hover:bg-gray-300  rounded-full" data-category="bocapizza">Bocapizza</button>
+            <button class="category-btn bg hover:bg-gray-300  rounded-full" data-category="ensalada">Ensalada</button>
+            <button class="category-btn bg hover:bg-gray-300  rounded-full" data-category="postres">Postres</button>
+        </div>
+    </div>
+
+        <!-- Starters Section -->
+        <section id="raciones" class="menu-section mb-16">
+            <h2 class="text-3xl font-bold mb-8 pb-2 border-b-2 border-amber-200 text-amber-800">raciones</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Item 1 -->
+                <div class="food-card bg-white shadow-md" data-category="raciones">
+                    <div class="relative">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/90d7926b-2bca-473c-b254-d385b41d8586.png" alt="Golden crispy bruschetta with tomatoes, basil and parmesan on wooden board" class="w-full h-48 object-cover">
+                        <span class="price-tag">€13 </span>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="text-xl font-bold mb-2">CHOPITOS</h3>
+                    </div>
+                </div>
+                
+                <!-- Item 2 -->
+                <div class="food-card bg-white shadow-md" data-category="raciones">
+                    <div class="relative">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/744981c2-4ca9-44d8-a85a-ff5b4b5ef3d0.png" alt="Fresh spring rolls with shrimp, vegetables and herbs on white plate with dipping sauce" class="w-full h-48 object-cover">
+                        <span class="price-tag">€12</span>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="text-xl font-bold mb-2">GULAS CON GAMBAS</h3>
+                     
+                    </div>
+                </div>
+                
+                <!-- Item 3 -->
+                <div class="food-card bg-white shadow-md" data-category="raciones">
+                    <div class="relative">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/9714d4bd-fbe1-4941-97ea-68d839d73d83.png" alt="Baked goat cheese topped with honey and walnuts in ceramic dish" class="w-full h-48 object-cover">
+                        <span class="price-tag">€13</span>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="text-xl font-bold mb-2">CALAMARES</h3>  
+                    </div>
+                </div>
+                <!-- Item 4 -->
+                <div class="food-card bg-white shadow-md" data-category="raciones">
+                    <div class="relative">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/9714d4bd-fbe1-4941-97ea-68d839d73d83.png" alt="Baked goat cheese topped with honey and walnuts in ceramic dish" class="w-full h-48 object-cover">
+                        <span class="price-tag">€14</span>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="text-xl font-bold mb-2">SEPIA</h3>  
+                    </div>
+                </div>
+                <!-- Item 5 -->
+                <div class="food-card bg-white shadow-md" data-category="raciones">
+                    <div class="relative">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/9714d4bd-fbe1-4941-97ea-68d839d73d83.png" alt="Baked goat cheese topped with honey and walnuts in ceramic dish" class="w-full h-48 object-cover">
+                        <span class="price-tag">€14</span>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="text-xl font-bold mb-2">GAMBAS AL AJILLO</h3>  
+                    </div>
+                </div>
+                                <!-- Item 6 -->
+                <div class="food-card bg-white shadow-md" data-category="raciones">
+                    <div class="relative">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/9714d4bd-fbe1-4941-97ea-68d839d73d83.png" alt="Baked goat cheese topped with honey and walnuts in ceramic dish" class="w-full h-48 object-cover">
+                        <span class="price-tag">€22</span>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="text-xl font-bold mb-2">PULPO A LA GALLEGA EN TABLA</h3>  
+                    </div>
+                </div>
+                                <!-- Item 7 -->
+                <div class="food-card bg-white shadow-md" data-category="raciones">
+                    <div class="relative">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/9714d4bd-fbe1-4941-97ea-68d839d73d83.png" alt="Baked goat cheese topped with honey and walnuts in ceramic dish" class="w-full h-48 object-cover">
+                        <span class="price-tag">€18</span>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="text-xl font-bold mb-2">FRITURA DE PESCADO ESPECIAL</h3>  
+                    </div>
+                </div>
+                                <!-- Item 8 -->
+                <div class="food-card bg-white shadow-md" data-category="raciones">
+                    <div class="relative">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/9714d4bd-fbe1-4941-97ea-68d839d73d83.png" alt="Baked goat cheese topped with honey and walnuts in ceramic dish" class="w-full h-48 object-cover">
+                        <span class="price-tag">€12</span>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="text-xl font-bold mb-2">SETAS CON GAMBAS</h3>  
+                    </div>
+                </div>
+                                <!-- Item 9 -->
+                <div class="food-card bg-white shadow-md" data-category="raciones">
+                    <div class="relative">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/9714d4bd-fbe1-4941-97ea-68d839d73d83.png" alt="Baked goat cheese topped with honey and walnuts in ceramic dish" class="w-full h-48 object-cover">
+                        <span class="price-tag">€12</span>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="text-xl font-bold mb-2">CROQUETAS CASERAS (10 udes.)</h3>  
+                    </div>
+                </div>
+                                                <!-- Item 10 -->
+                <div class="food-card bg-white shadow-md" data-category="raciones">
+                    <div class="relative">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/9714d4bd-fbe1-4941-97ea-68d839d73d83.png" alt="Baked goat cheese topped with honey and walnuts in ceramic dish" class="w-full h-48 object-cover">
+                        <span class="price-tag">€13</span>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="text-xl font-bold mb-2">MOLLEJAS</h3>  
+                    </div>
+                </div>
+                                                                <!-- Item 11 -->
+                <div class="food-card bg-white shadow-md" data-category="raciones">
+                    <div class="relative">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/9714d4bd-fbe1-4941-97ea-68d839d73d83.png" alt="Baked goat cheese topped with honey and walnuts in ceramic dish" class="w-full h-48 object-cover">
+                        <span class="price-tag">€15</span>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="text-xl font-bold mb-2">FILETES DE VENAO PLANCHA</h3>  
+                    </div>
+                </div>
+                                                                <!-- Item 12 -->
+                <div class="food-card bg-white shadow-md" data-category="raciones">
+                    <div class="relative">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/9714d4bd-fbe1-4941-97ea-68d839d73d83.png" alt="Baked goat cheese topped with honey and walnuts in ceramic dish" class="w-full h-48 object-cover">
+                        <span class="price-tag">€15</span>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="text-xl font-bold mb-2">VENAO (BOX)</h3>  
+                    </div>
+                </div>
+                                                                <!-- Item 13 -->
+                <div class="food-card bg-white shadow-md" data-category="raciones">
+                    <div class="relative">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/9714d4bd-fbe1-4941-97ea-68d839d73d83.png" alt="Baked goat cheese topped with honey and walnuts in ceramic dish" class="w-full h-48 object-cover">
+                        <span class="price-tag">€12</span>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="text-xl font-bold mb-2">CARCAMUSAS</h3>  
+                    </div>
+                </div>
+                                                                <!-- Item 14 -->
+                <div class="food-card bg-white shadow-md" data-category="raciones">
+                    <div class="relative">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/9714d4bd-fbe1-4941-97ea-68d839d73d83.png" alt="Baked goat cheese topped with honey and walnuts in ceramic dish" class="w-full h-48 object-cover">
+                        <span class="price-tag">€12</span>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="text-xl font-bold mb-2">OREJAS</h3>  
+                    </div>
+                </div>
+                                                                <!-- Item 15 -->
+                <div class="food-card bg-white shadow-md" data-category="raciones">
+                    <div class="relative">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/9714d4bd-fbe1-4941-97ea-68d839d73d83.png" alt="Baked goat cheese topped with honey and walnuts in ceramic dish" class="w-full h-48 object-cover">
+                        <span class="price-tag">€14</span>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="text-xl font-bold mb-2">SOLOMILLO CONFITADO A BAJA TEMPERATURA</h3>  
+                    </div>
+                </div>
+                                                                <!-- Item 10 -->
+                <div class="food-card bg-white shadow-md" data-category="raciones">
+                    <div class="relative">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/9714d4bd-fbe1-4941-97ea-68d839d73d83.png" alt="Baked goat cheese topped with honey and walnuts in ceramic dish" class="w-full h-48 object-cover">
+                        <span class="price-tag">€9</span>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="text-xl font-bold mb-2">NUGGETS DE POLLO</h3>  
+                    </div>
+                </div>
+                
+                <div class="food-card bg-white shadow-md" data-category="raciones">
+                    <div class="relative">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/9714d4bd-fbe1-4941-97ea-68d839d73d83.png" alt="Baked goat cheese topped with honey and walnuts in ceramic dish" class="w-full h-48 object-cover">
+                        <span class="price-tag">€10</span>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="text-xl font-bold mb-2">FINGERS DE POLLO</h3>  
+                    </div>
+                </div>
+
+
+
+            </div>
+
+
+
+
+
+
+        </section>
+
+        <!-- Main Courses Section -->
+        <section id="burger" class="menu-section mb-16">
+            <h2 class="text-3xl font-bold mb-8 pb-2 border-b-2 border-amber-200 text-amber-800">HAMBURGUESAS</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Item 1 -->
+                <div class="food-card bg-white shadow-md" data-category="burger">
+                    <div class="relative">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/df00f35a-4df6-4dba-9e9c-30bca8da2b69.png" alt="Grilled salmon fillet with asparagus and lemon slices on white plate" class="w-full h-48 object-cover">
+                        <span class="price-tag">€6.50</span>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="text-xl font-bold mb-2">NORMAL</h3>
+                        <p class="text-gray-600 mb-4">Carne, queso, lechuga, tomate, cebolla y pepinillo</p>
+                       
+                    </div>
+                </div>
+                
+                <!-- Item 2 -->
+                <div class="food-card bg-white shadow-md" data-category="burger">
+                    <div class="relative">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/ffa33386-ec62-430e-9f4e-2f51fe0aaf3f.png" alt="Juicy beef tenderloin steak with red wine reduction and roasted vegetables" class="w-full h-48 object-cover">
+                        <span class="price-tag">€6.50</span>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="text-xl font-bold mb-2">POLLO</h3>
+                        <p class="text-gray-600 mb-4">Carne, lechuga, tomate, cebolla y pepinillo</p>
+                       
+                    </div>
+                </div>
+                
+                <!-- Item 3 -->
+                <div class="food-card bg-white shadow-md" data-category="burger">
+                    <div class="relative">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/88be524e-d20c-4177-a2ef-0876db126c59.png" alt="Colorful vegetarian risotto with mushrooms, peas and parmesan cheese" class="w-full h-48 object-cover">
+                        <span class="price-tag">€6.50</span>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="text-xl font-bold mb-2">YOGUI</h3>
+                        <p class="text-gray-600 mb-4">Jamón york, lechuga, tomate, tortilla y mayonesa</p>
+                        
+                    </div>
+                </div>
+                                <!-- Item 3 -->
+                <div class="food-card bg-white shadow-md" data-category="burger">
+                    <div class="relative">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/88be524e-d20c-4177-a2ef-0876db126c59.png" alt="Colorful vegetarian risotto with mushrooms, peas and parmesan cheese" class="w-full h-48 object-cover">
+                        <span class="price-tag">€7.50</span>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="text-xl font-bold mb-2">YOGUI EXTRA</h3>
+                        <p class="text-gray-600 mb-4">Yogui + carne</p>
+                        
+                    </div>
+                </div>
+                                <!-- Item 3 -->
+                <div class="food-card bg-white shadow-md" data-category="burger">
+                    <div class="relative">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/88be524e-d20c-4177-a2ef-0876db126c59.png" alt="Colorful vegetarian risotto with mushrooms, peas and parmesan cheese" class="w-full h-48 object-cover">
+                        <span class="price-tag">€9</span>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="text-xl font-bold mb-2">BUEY</h3>
+                        <p class="text-gray-600 mb-4">Carne de buey "200gr", cheddar, mezclum, tomate, cebolla crujiente y pepinillo</p>
+                        
+                    </div>
+                </div>
+                                <!-- Item 3 -->
+                <div class="food-card bg-white shadow-md" data-category="burger">
+                    <div class="relative">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/88be524e-d20c-4177-a2ef-0876db126c59.png" alt="Colorful vegetarian risotto with mushrooms, peas and parmesan cheese" class="w-full h-48 object-cover">
+                        <span class="price-tag">€9</span>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="text-xl font-bold mb-2">CORN-FLAKES</h3>
+                        <p class="text-gray-600 mb-4">Pollo 200gr, mezclum, tomate, cebolla crujiente y pepinillo</p>
+                        
+                    </div>
+                </div>
+                                <!-- Item 3 -->
+                <div class="food-card bg-white shadow-md" data-category="burger">
+                    <div class="relative">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/88be524e-d20c-4177-a2ef-0876db126c59.png" alt="Colorful vegetarian risotto with mushrooms, peas and parmesan cheese" class="w-full h-48 object-cover">
+                        <span class="price-tag">€10</span>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="text-xl font-bold mb-2">SMASH CHEESE BURGUER</h3>
+                        <p class="text-gray-600 mb-4">2 discos de carne jugosa al estilo smash, doble queso cheddar fundido, cebolla normal,
+                                                     pepinillos y salsa burguer, todo dentro de un pan de patata esponjoso "Juanito Baker"</p>
+                        
+                    </div>
+                </div>
+                                <!-- Item 3 -->
+                <div class="food-card bg-white shadow-md" data-category="burger">
+                    <div class="relative">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/88be524e-d20c-4177-a2ef-0876db126c59.png" alt="Colorful vegetarian risotto with mushrooms, peas and parmesan cheese" class="w-full h-48 object-cover">
+                        <span class="price-tag">€10</span>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="text-xl font-bold mb-2">SMASH BURGUER CLASICA</h3>
+                        <p class="text-gray-600 mb-4">2 discos de carne jugosa al estilo smash, doble queso cheddar fundido, lechuga, tomate, 
+                                                      cebolla, pepinillos, salsa "BOX", todo dentro de un pan de patata esponjoso "Juanito Baker</p>
+                        
+                    </div>
+                </div>
+                                                <!-- Item 3 -->
+                <div class="food-card bg-white shadow-md" data-category="burger">
+                    <div class="relative">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/88be524e-d20c-4177-a2ef-0876db126c59.png" alt="Colorful vegetarian risotto with mushrooms, peas and parmesan cheese" class="w-full h-48 object-cover">
+                        <span class="price-tag">€11</span>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="text-xl font-bold mb-2">LA MONTESA</h3>
+                        <p class="text-gray-600 mb-4">Jugoso medallón de vaca, queso de cabra, cebolla caramelizada, nuestra salsa de miel y mostaza,
+                                                      todo dentro de un pan de patata esponjoso "Juanito Baker"</p>
+                        
+                    </div>
+                </div>
+                                                <!-- Item 3 -->
+                <div class="food-card bg-white shadow-md" data-category="burger">
+                    <div class="relative">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/88be524e-d20c-4177-a2ef-0876db126c59.png" alt="Colorful vegetarian risotto with mushrooms, peas and parmesan cheese" class="w-full h-48 object-cover">
+                        <span class="price-tag">€11</span>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="text-xl font-bold mb-2">LA BACON BBQ</h3>
+                        <p class="text-gray-600 mb-4">Jugoso medallón de vaca, queso cheddar fundido, mermelada de bacon, salsa barbacoa 
+                                                      y cebolla frita, y todo dentro de un pan de patata esponjoso "Juanito Baker"</p>
+                        
+                    </div>
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            </div>
+        </section>
+
+        <!-- Desserts Section -->
+        <section id="bocadillo" class="menu-section mb-16">
+            <h2 class="text-3xl font-bold mb-8 pb-2 border-b-2 border-amber-200 text-amber-800">Pulgas y bocadillos</h2>
+            <h3 class="text-xl font-bold mb-2" style="margin-bottom: 30px;">PULGAS €4.80 | BOCADILLOS €6</h3>
+              <h4 class="text-xl font-bold mb-2" style="margin-bottom: 30px;">SUPLEMENTO DE PATATAS RIZADAS + €2.00</h4>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Item 1 -->
+                <div class="food-card bg-white shadow-md" data-category="bocadillo">
+                    <div class="relative">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/33c7c5e6-783b-4d47-b941-ec266a7e4da9.png" alt="Chocolate lava cake with molten center and vanilla ice cream" class="w-full h-48 object-cover">
+                        
+                    </div>
+                    <div class="p-5">
+                        <h3 class="text-xl font-bold mb-2">1. ASADILLO, ATÚN, HUEVO Y MAHONESA</h3>   
+                    </div>
+                </div>
+                
+                <!-- Item 1 -->
+                <div class="food-card bg-white shadow-md" data-category="bocadillo">
+                    <div class="relative">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/33c7c5e6-783b-4d47-b941-ec266a7e4da9.png" alt="Chocolate lava cake with molten center and vanilla ice cream" class="w-full h-48 object-cover">
+                        
+                    </div>
+                    <div class="p-5">
+                        <h3 class="text-xl font-bold mb-2">2. CALAMARES</h3>   
+                    </div>
+                </div>
+                
+                <!-- Item 1 -->
+                <div class="food-card bg-white shadow-md" data-category="bocadillo">
+                    <div class="relative">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/33c7c5e6-783b-4d47-b941-ec266a7e4da9.png" alt="Chocolate lava cake with molten center and vanilla ice cream" class="w-full h-48 object-cover">
+                        
+                    </div>
+                    <div class="p-5">
+                        <h3 class="text-xl font-bold mb-2">3. ATUN, ANCHOAS, BOQUERONES Y SALMON</h3>   
+                    </div>
+                </div>
+                                <!-- Item 1 -->
+                <div class="food-card bg-white shadow-md" data-category="bocadillo">
+                    <div class="relative">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/33c7c5e6-783b-4d47-b941-ec266a7e4da9.png" alt="Chocolate lava cake with molten center and vanilla ice cream" class="w-full h-48 object-cover">
+                        
+                    </div>
+                    <div class="p-5">
+                        <h3 class="text-xl font-bold mb-2">4. BACON, LOMO, TOMATE Y QUESO</h3>   
+                    </div>
+                </div>
+                                <!-- Item 1 -->
+                <div class="food-card bg-white shadow-md" data-category="bocadillo">
+                    <div class="relative">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/33c7c5e6-783b-4d47-b941-ec266a7e4da9.png" alt="Chocolate lava cake with molten center and vanilla ice cream" class="w-full h-48 object-cover">
+                        
+                    </div>
+                    <div class="p-5">
+                        <h3 class="text-xl font-bold mb-2">5. BACON, TOMATE Y QUESO</h3>   
+                    </div>
+                </div>
+                                <!-- Item 1 -->
+                <div class="food-card bg-white shadow-md" data-category="bocadillo">
+                    <div class="relative">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/33c7c5e6-783b-4d47-b941-ec266a7e4da9.png" alt="Chocolate lava cake with molten center and vanilla ice cream" class="w-full h-48 object-cover">
+                        
+                    </div>
+                    <div class="p-5">
+                        <h3 class="text-xl font-bold mb-2">6. VENAO</h3>   
+                    </div>
+                </div>
+                                <!-- Item 1 -->
+                <div class="food-card bg-white shadow-md" data-category="bocadillo">
+                    <div class="relative">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/33c7c5e6-783b-4d47-b941-ec266a7e4da9.png" alt="Chocolate lava cake with molten center and vanilla ice cream" class="w-full h-48 object-cover">
+                        
+                    </div>
+                    <div class="p-5">
+                        <h3 class="text-xl font-bold mb-2">7. SALMON, TOMATE Y MAHONESA</h3>   
+                    </div>
+                </div>
+                                <!-- Item 1 -->
+                <div class="food-card bg-white shadow-md" data-category="bocadillo">
+                    <div class="relative">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/33c7c5e6-783b-4d47-b941-ec266a7e4da9.png" alt="Chocolate lava cake with molten center and vanilla ice cream" class="w-full h-48 object-cover">
+                        
+                    </div>
+                    <div class="p-5">
+                        <h3 class="text-xl font-bold mb-2">8. TORTILLA FRANCESA CON ATÚN</h3>   
+                    </div>
+                </div>
+                                   <!-- Item 1 -->
+                <div class="food-card bg-white shadow-md" data-category="bocadillo">
+                    <div class="relative">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/33c7c5e6-783b-4d47-b941-ec266a7e4da9.png" alt="Chocolate lava cake with molten center and vanilla ice cream" class="w-full h-48 object-cover">
+                        
+                    </div>
+                    <div class="p-5">
+                        <h3 class="text-xl font-bold mb-2">9. POLLO PLANCHA, QUESO, TOMATE Y LECHUGA</h3>   
+                    </div>
+                </div>
+                                   <!-- Item 1 -->
+                <div class="food-card bg-white shadow-md" data-category="bocadillo">
+                    <div class="relative">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/33c7c5e6-783b-4d47-b941-ec266a7e4da9.png" alt="Chocolate lava cake with molten center and vanilla ice cream" class="w-full h-48 object-cover">
+                        
+                    </div>
+                    <div class="p-5">
+                        <h3 class="text-xl font-bold mb-2">10. TORTILLA FRANCESA CON JAMÓN SERRANO</h3>   
+                    </div>
+                </div>
+                                   <!-- Item 1 -->
+                <div class="food-card bg-white shadow-md" data-category="bocadillo">
+                    <div class="relative">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/33c7c5e6-783b-4d47-b941-ec266a7e4da9.png" alt="Chocolate lava cake with molten center and vanilla ice cream" class="w-full h-48 object-cover">
+                        
+                    </div>
+                    <div class="p-5">
+                        <h3 class="text-xl font-bold mb-2">11. PICADILLO DE VENAO CON SALSA DE SETAS</h3>   
+                    </div>
+                </div>
+                                   <!-- Item 1 -->
+                <div class="food-card bg-white shadow-md" data-category="bocadillo">
+                    <div class="relative">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/33c7c5e6-783b-4d47-b941-ec266a7e4da9.png" alt="Chocolate lava cake with molten center and vanilla ice cream" class="w-full h-48 object-cover">
+                        
+                    </div>
+                    <div class="p-5">
+                        <h3 class="text-xl font-bold mb-2">12. CRUJIENTE DE POLLO, BACÓN Y PIMIENTO</h3>   
+                    </div>
+                </div>
+                                   <!-- Item 1 -->
+                <div class="food-card bg-white shadow-md" data-category="bocadillo">
+                    <div class="relative">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/33c7c5e6-783b-4d47-b941-ec266a7e4da9.png" alt="Chocolate lava cake with molten center and vanilla ice cream" class="w-full h-48 object-cover">
+                        
+                    </div>
+                    <div class="p-5">
+                        <h3 class="text-xl font-bold mb-2">13. CRUJIENTE DE POLLO, TOMATE, LECHUGA Y MAHONESA</h3>   
+                    </div>
+                </div>
+                                   <!-- Item 1 -->
+                <div class="food-card bg-white shadow-md" data-category="bocadillo">
+                    <div class="relative">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/33c7c5e6-783b-4d47-b941-ec266a7e4da9.png" alt="Chocolate lava cake with molten center and vanilla ice cream" class="w-full h-48 object-cover">
+                        
+                    </div>
+                    <div class="p-5">
+                        <h3 class="text-xl font-bold mb-2">14. SOLOMILLO DE CEBÓN CON CEBOLLA CARAMELIZADA</h3>   
+                    </div>
+                </div>
+                                   <!-- Item 1 -->
+                <div class="food-card bg-white shadow-md" data-category="bocadillo">
+                    <div class="relative">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/33c7c5e6-783b-4d47-b941-ec266a7e4da9.png" alt="Chocolate lava cake with molten center and vanilla ice cream" class="w-full h-48 object-cover">
+                        
+                    </div>
+                    <div class="p-5">
+                        <h3 class="text-xl font-bold mb-2">15. LOMO, JAMÓN, PIMIENTOS, TOMATE Y MAHONESA</h3>   
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- Drinks Section -->
+        <section id="sartenes" class="menu-section mb-16">
+            <h2 class="text-3xl font-bold mb-8 pb-2 border-b-2 border-amber-200 text-amber-800">Sartenes</h2>
+                        <h3 class="text-xl font-bold mb-2" style="margin-bottom: 30px;">SUPLEMENTO DE PIMIENTOS + €0.50</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Item 1 -->
+                <div class="food-card bg-white shadow-md" data-category="sartenes">
+                    <div class="relative">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/8a88be18-cbcf-4295-b35c-0a84b090c2d3.png" alt="Refreshing mojito cocktail with lime, mint and ice in tall glass" class="w-full h-48 object-cover">
+                        <span class="price-tag">€10</span>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="text-xl font-bold mb-2">1. PATATAS, HUEVOS ROTOS Y PICADILLO DE VENAO</h3>                      
+                    </div>
+                </div>
+                
+                <!-- Item 2 -->
+            <div class="food-card bg-white shadow-md" data-category="sartenes">
+                    <div class="relative">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/8a88be18-cbcf-4295-b35c-0a84b090c2d3.png" alt="Refreshing mojito cocktail with lime, mint and ice in tall glass" class="w-full h-48 object-cover">
+                        <span class="price-tag">€10</span>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="text-xl font-bold mb-2">2. PATATAS, HUEVOS ROTOS Y GULAS</h3>                       
+                    </div>
+                </div>
+                
+                <!-- Item 3 -->
+            <div class="food-card bg-white shadow-md" data-category="sartenes">
+                    <div class="relative">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/8a88be18-cbcf-4295-b35c-0a84b090c2d3.png" alt="Refreshing mojito cocktail with lime, mint and ice in tall glass" class="w-full h-48 object-cover">
+                        <span class="price-tag">€10</span>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="text-xl font-bold mb-2">3. PATATAS, HUEVOS ROTOS Y JAMÓN</h3>                       
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+         <!-- Main Courses Section -->
+        <section id="tostas" class="menu-section mb-16">
+            <h2 class="text-3xl font-bold mb-8 pb-2 border-b-2 border-amber-200 text-amber-800">tostas</h2>
+                            <h3 class="text-xl font-bold mb-2" style="margin-bottom: 30px;">SUPLEMENTO QUESO DE CABRA + €2.00</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Item 1 -->
+                <div class="food-card bg-white shadow-md" data-category="tostas">
+                    <div class="relative">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/df00f35a-4df6-4dba-9e9c-30bca8da2b69.png" alt="Grilled salmon fillet with asparagus and lemon slices on white plate" class="w-full h-48 object-cover">
+                        <span class="price-tag">€10</span>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="text-xl font-bold mb-2">1. SOLOMILLO DE CEBON CON SALSA PIMIENTA</h3>   
+                    </div>
+                </div>
+                
+                <!-- Item 2 -->
+                <div class="food-card bg-white shadow-md" data-category="tostas">
+                    <div class="relative">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/df00f35a-4df6-4dba-9e9c-30bca8da2b69.png" alt="Grilled salmon fillet with asparagus and lemon slices on white plate" class="w-full h-48 object-cover">
+                        <span class="price-tag">€10</span>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="text-xl font-bold mb-2">2. SOLOMILLO DE CEBON, CEBOLLA CARAMELIZADA Y PARMESANO RAYADO</h3>   
+                    </div>
+                </div>
+                
+                <!-- Item 3 -->
+                <div class="food-card bg-white shadow-md" data-category="tostas">
+                    <div class="relative">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/df00f35a-4df6-4dba-9e9c-30bca8da2b69.png" alt="Grilled salmon fillet with asparagus and lemon slices on white plate" class="w-full h-48 object-cover">
+                        <span class="price-tag">€10</span>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="text-xl font-bold mb-2">3. VENAO EN ADOBO CON QUESO PARMESANO RAYADO</h3>   
+                    </div>
+                </div>
+                                <!-- Item 4 -->
+                <div class="food-card bg-white shadow-md" data-category="tostas">
+                    <div class="relative">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/df00f35a-4df6-4dba-9e9c-30bca8da2b69.png" alt="Grilled salmon fillet with asparagus and lemon slices on white plate" class="w-full h-48 object-cover">
+                        <span class="price-tag">€10</span>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="text-xl font-bold mb-2">4. SALMÓN, QUESO, ANCHOAS Y BOQUERONES</h3>   
+                    </div>
+                </div>
+                                <!-- Item 5 -->
+                <div class="food-card bg-white shadow-md" data-category="tostas">
+                    <div class="relative">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/df00f35a-4df6-4dba-9e9c-30bca8da2b69.png" alt="Grilled salmon fillet with asparagus and lemon slices on white plate" class="w-full h-48 object-cover">
+                        <span class="price-tag">€10</span>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="text-xl font-bold mb-2">5. GULAS CON GAMBAS</h3>   
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+
+
+     <!-- Main Courses Section -->
+        <section id="patatas" class="menu-section mb-16">
+            <h2 class="text-3xl font-bold mb-8 pb-2 border-b-2 border-amber-200 text-amber-800">Patatas</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Item 1 -->
+                <div class="food-card bg-white shadow-md" data-category="patatas">
+                    <div class="relative">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/df00f35a-4df6-4dba-9e9c-30bca8da2b69.png" alt="Grilled salmon fillet with asparagus and lemon slices on white plate" class="w-full h-48 object-cover">
+                        <span class="price-tag">€10</span>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="text-xl font-bold mb-2">BOX (bacon y queso fundido)</h3>
+                    </div>
+                </div>
+                
+                <!-- Item 2 -->
+               <div class="food-card bg-white shadow-md" data-category="patatas">
+                    <div class="relative">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/df00f35a-4df6-4dba-9e9c-30bca8da2b69.png" alt="Grilled salmon fillet with asparagus and lemon slices on white plate" class="w-full h-48 object-cover">
+                        <span class="price-tag">€8</span>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="text-xl font-bold mb-2">BRAVAS</h3>
+                    </div>
+                </div>
+                
+                <!-- Item 3 -->
+                <div class="food-card bg-white shadow-md" data-category="patatas">
+                    <div class="relative">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/df00f35a-4df6-4dba-9e9c-30bca8da2b69.png" alt="Grilled salmon fillet with asparagus and lemon slices on white plate" class="w-full h-48 object-cover">
+                        <span class="price-tag">€8</span>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="text-xl font-bold mb-2">AMERICANAS</h3>
+                    </div>
+                </div>
+
+                <div class="food-card bg-white shadow-md" data-category="patatas">
+                    <div class="relative">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/df00f35a-4df6-4dba-9e9c-30bca8da2b69.png" alt="Grilled salmon fillet with asparagus and lemon slices on white plate" class="w-full h-48 object-cover">
+                        <span class="price-tag">€7</span>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="text-xl font-bold mb-2">TABLA DE PATATAS (6 salsas)</h3>
+                    </div>
+                </div>
+
+                <div class="food-card bg-white shadow-md" data-category="patatas">
+                    <div class="relative">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/df00f35a-4df6-4dba-9e9c-30bca8da2b69.png" alt="Grilled salmon fillet with asparagus and lemon slices on white plate" class="w-full h-48 object-cover">
+                        <span class="price-tag">€10</span>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="text-xl font-bold mb-2">TABLA DE PATATAS + NUGGETS</h3>
+                    </div>
+                </div>
+
+                <div class="food-card bg-white shadow-md" data-category="patatas">
+                    <div class="relative">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/df00f35a-4df6-4dba-9e9c-30bca8da2b69.png" alt="Grilled salmon fillet with asparagus and lemon slices on white plate" class="w-full h-48 object-cover">
+                        <span class="price-tag">€11</span>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="text-xl font-bold mb-2">TABLA DE PATATAS + FINGERS</h3>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+
+        <section id="sandwich" class="menu-section mb-16">
+            <h2 class="text-3xl font-bold mb-8 pb-2 border-b-2 border-amber-200 text-amber-800">Sandwiches</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Item 1 -->
+                <div class="food-card bg-white shadow-md" data-category="sandwich">
+                    <div class="relative">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/df00f35a-4df6-4dba-9e9c-30bca8da2b69.png" alt="Grilled salmon fillet with asparagus and lemon slices on white plate" class="w-full h-48 object-cover">
+                        <span class="price-tag">€4</span>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="text-xl font-bold mb-2">MIXTO (jamón york y queso)</h3>                      
+                    </div>
+                </div>
+                
+                <!-- Item 2 -->
+               <div class="food-card bg-white shadow-md" data-category="sandwich">
+                    <div class="relative">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/df00f35a-4df6-4dba-9e9c-30bca8da2b69.png" alt="Grilled salmon fillet with asparagus and lemon slices on white plate" class="w-full h-48 object-cover">
+                        <span class="price-tag">€5</span>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="text-xl font-bold mb-2">CUBANO (jamón york, queso y huevo)</h3>                      
+                    </div>
+                </div>
+                
+                <!-- Item 3 -->
+               <div class="food-card bg-white shadow-md" data-category="sandwich">
+                    <div class="relative">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/df00f35a-4df6-4dba-9e9c-30bca8da2b69.png" alt="Grilled salmon fillet with asparagus and lemon slices on white plate" class="w-full h-48 object-cover">
+                        <span class="price-tag">€4.50</span>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="text-xl font-bold mb-2">VEGETAL</h3>                      
+                    </div>
+                </div>
+                           <!-- Item 4 -->
+               <div class="food-card bg-white shadow-md" data-category="sandwich">
+                    <div class="relative">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/df00f35a-4df6-4dba-9e9c-30bca8da2b69.png" alt="Grilled salmon fillet with asparagus and lemon slices on white plate" class="w-full h-48 object-cover">
+                        <span class="price-tag">€4</span>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="text-xl font-bold mb-2">CLUB 2 PISOS CON PATATAS (pollo, bacón, tomate, lechuga, york, queso y mayonesa)</h3>                      
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+           <section id="bocapizza" class="menu-section mb-16">
+            <h2 class="text-3xl font-bold mb-8 pb-2 border-b-2 border-amber-200 text-amber-800">Bocapizza</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Item 1 -->
+                <div class="food-card bg-white shadow-md" data-category="bocapizza">
+                    <div class="relative">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/df00f35a-4df6-4dba-9e9c-30bca8da2b69.png" alt="Grilled salmon fillet with asparagus and lemon slices on white plate" class="w-full h-48 object-cover">
+                        <span class="price-tag">€4.50</span>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="text-xl font-bold mb-2">1. JAMÓN YORK</h3>
+                    </div>
+                </div>
+                
+                <!-- Item 2 -->
+                <div class="food-card bg-white shadow-md" data-category="bocapizza">
+                    <div class="relative">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/df00f35a-4df6-4dba-9e9c-30bca8da2b69.png" alt="Grilled salmon fillet with asparagus and lemon slices on white plate" class="w-full h-48 object-cover">
+                        <span class="price-tag">€4.50</span>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="text-xl font-bold mb-2">2. BACON</h3>
+                    </div>
+                </div>
+                
+                <!-- Item 3 -->
+                <div class="food-card bg-white shadow-md" data-category="bocapizza">
+                    <div class="relative">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/df00f35a-4df6-4dba-9e9c-30bca8da2b69.png" alt="Grilled salmon fillet with asparagus and lemon slices on white plate" class="w-full h-48 object-cover">
+                        <span class="price-tag">€4.50</span>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="text-xl font-bold mb-2">3. BARBACOA</h3>
+                    </div>
+                </div>
+                              <!-- Item 3 -->
+                <div class="food-card bg-white shadow-md" data-category="bocapizza">
+                    <div class="relative">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/df00f35a-4df6-4dba-9e9c-30bca8da2b69.png" alt="Grilled salmon fillet with asparagus and lemon slices on white plate" class="w-full h-48 object-cover">
+                        <span class="price-tag">€4.50</span>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="text-xl font-bold mb-2">4. ATUN</h3>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+
+           <section id="ensalada" class="menu-section mb-16">
+            <h2 class="text-3xl font-bold mb-8 pb-2 border-b-2 border-amber-200 text-amber-800">Ensaladas</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Item 1 -->
+                <div class="food-card bg-white shadow-md" data-category="ensalada">
+                    <div class="relative">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/df00f35a-4df6-4dba-9e9c-30bca8da2b69.png" alt="Grilled salmon fillet with asparagus and lemon slices on white plate" class="w-full h-48 object-cover">
+                        <span class="price-tag">€8</span>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="text-xl font-bold mb-2">1. MIXTA</h3>
+                        <p class="text-gray-600 mb-4">Atún, huevo y espárragos</p>
+                       
+                    </div>
+                </div>
+                
+                <!-- Item 2 -->
+                <div class="food-card bg-white shadow-md" data-category="ensalada">
+                    <div class="relative">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/ffa33386-ec62-430e-9f4e-2f51fe0aaf3f.png" alt="Juicy beef tenderloin steak with red wine reduction and roasted vegetables" class="w-full h-48 object-cover">
+                        <span class="price-tag">€9</span>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="text-xl font-bold mb-2">2. CÉSAR </h3>
+                        <p class="text-gray-600 mb-4">Pollo crujiente, picatostes, parmesano y salsa Cesar</p>
+                       
+                    </div>
+                </div>
+                
+                <!-- Item 3 -->
+                <div class="food-card bg-white shadow-md" data-category="ensalada">
+                    <div class="relative">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/ffa33386-ec62-430e-9f4e-2f51fe0aaf3f.png" alt="Juicy beef tenderloin steak with red wine reduction and roasted vegetables" class="w-full h-48 object-cover">
+                        <span class="price-tag">€10</span>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="text-xl font-bold mb-2">3. BOX </h3>
+                        <p class="text-gray-600 mb-4">Ensalada templada de queso de cabra y confitura de tomate</p>
+                       
+                    </div>
+                </div>
+
+                            <!-- Item 4 -->
+                <div class="food-card bg-white shadow-md" data-category="ensalada">
+                    <div class="relative">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/ffa33386-ec62-430e-9f4e-2f51fe0aaf3f.png" alt="Juicy beef tenderloin steak with red wine reduction and roasted vegetables" class="w-full h-48 object-cover">
+                        <span class="price-tag">€10</span>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="text-xl font-bold mb-2">4. ASADILLO CON VENTRESCA  </h3>
+                        <p class="text-gray-600 mb-4">Con mezclum de lechuga, tomate y huevo duro</p>
+                       
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+
+        
+           <section id="postres" class="menu-section mb-16">
+            <h2 class="text-3xl font-bold mb-8 pb-2 border-b-2 border-amber-200 text-amber-800">Postres</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+               <div class="food-card bg-white shadow-md" data-category="postres">
+                    <div class="relative">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/88be524e-d20c-4177-a2ef-0876db126c59.png" alt="Colorful vegetarian risotto with mushrooms, peas and parmesan cheese" class="w-full h-48 object-cover">
+                        <span class="price-tag">€2.50</span>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="text-xl font-bold mb-2">BOLA HELADO</h3>                       
+                    </div>
+                </div>
+
+
+            <div class="food-card bg-white shadow-md" data-category="postres">
+                    <div class="relative">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/88be524e-d20c-4177-a2ef-0876db126c59.png" alt="Colorful vegetarian risotto with mushrooms, peas and parmesan cheese" class="w-full h-48 object-cover">
+                        <span class="price-tag">€7</span>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="text-xl font-bold mb-2"> COPA CLASICA</h3>            
+                           <p class="text-gray-600 mb-4">3 sabores a elegir</p>           
+                    </div>
+                </div>
+
+                <!-- Item 1 -->
+                <div class="food-card bg-white shadow-md" data-category="postres">
+                    <div class="relative">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/df00f35a-4df6-4dba-9e9c-30bca8da2b69.png" alt="Grilled salmon fillet with asparagus and lemon slices on white plate" class="w-full h-48 object-cover">
+                        <span class="price-tag">€6</span>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="text-xl font-bold mb-2">COPA BOX </h3>
+                        <p class="text-gray-600 mb-4">Brownie con helado de vainilla y chocolate caliente</p>                
+                    </div>
+                </div>
+                
+                <!-- Item 2 -->
+                <div class="food-card bg-white shadow-md" data-category="postres">
+                    <div class="relative">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/df00f35a-4df6-4dba-9e9c-30bca8da2b69.png" alt="Grilled salmon fillet with asparagus and lemon slices on white plate" class="w-full h-48 object-cover">
+                        <span class="price-tag">€6</span>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="text-xl font-bold mb-2">TARTA DE QUESO (CASERA) </h3>
+                        <p class="text-gray-600 mb-4">Con bola de helado de pistacho y nata</p>                
+                    </div>
+                </div>
+                
+                <!-- Item 3 -->
+                <div class="food-card bg-white shadow-md" data-category="postres">
+                    <div class="relative">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/88be524e-d20c-4177-a2ef-0876db126c59.png" alt="Colorful vegetarian risotto with mushrooms, peas and parmesan cheese" class="w-full h-48 object-cover">
+                        <span class="price-tag">€6</span>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="text-xl font-bold mb-2">QUESADA PASIEGA (CASERA)</h3>
+                        <p class="text-gray-600 mb-4">Con bola de helado de cheesecake y nata</p>
+                        
+                    </div>
+                </div>
+
+                                <!-- Item 4 -->
+                <div class="food-card bg-white shadow-md" data-category="postres">
+                    <div class="relative">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/88be524e-d20c-4177-a2ef-0876db126c59.png" alt="Colorful vegetarian risotto with mushrooms, peas and parmesan cheese" class="w-full h-48 object-cover">
+                        <span class="price-tag">€7</span>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="text-xl font-bold mb-2">TORRIJA BRIOCHE (CASERA) </h3>
+                        <p class="text-gray-600 mb-4">Con crema chocolate blanco y bola de helado oreo</p>
+                        
+                    </div>
+                </div>
+
+                                        <!-- Item 4 -->
+                <div class="food-card bg-white shadow-md" data-category="postres">
+                    <div class="relative">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/88be524e-d20c-4177-a2ef-0876db126c59.png" alt="Colorful vegetarian risotto with mushrooms, peas and parmesan cheese" class="w-full h-48 object-cover">
+                        <span class="price-tag">€17</span>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="text-xl font-bold mb-2">COMBO 1 </h3>
+                        <p class="text-gray-600 mb-4">Brownie + tarta de queso + 4 bolas de helado</p>
+                        
+                    </div>
+                </div>
+                                            <!-- Item 4 -->
+                <div class="food-card bg-white shadow-md" data-category="postres">
+                    <div class="relative">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/88be524e-d20c-4177-a2ef-0876db126c59.png" alt="Colorful vegetarian risotto with mushrooms, peas and parmesan cheese" class="w-full h-48 object-cover">
+                        <span class="price-tag">€20</span>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="text-xl font-bold mb-2">COMBO 2 </h3>
+                        <p class="text-gray-600 mb-4">brownie + tarta de queso + quesada pasiega + 4 bolas de helado</p>
+                         <p class="text-gray-600 mb-4">HELADOS SABORES (vainilla, chocolate, mango, cheesecake, kinder bueno, oreo, pistacho)</p>
+                  
+                    </div>
+                </div>
+                                            <!-- Item 4 -->
+            </div>
+        </section>
+
+    </main>
+
+
+
+
+
+    <!-- Cart Modal -->
+    <div id="cartModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center">
+        <div class="bg-white rounded-lg max-w-md w-full max-h-[80vh] overflow-y-auto">
+            <div class="p-4 border-b sticky top-0 bg-white z-10 flex justify-between items-center">
+                <h3 class="text-xl font-bold">Your Order</h3>
+                <button id="closeCart" class="text-gray-500 hover:text-gray-700">&times;</button>
+            </div>
+            <div class="p-4" id="cartItems">
+                <!-- Cart items will be added here dynamically -->
+                <p class="text-gray-500 text-center py-8">Your cart is empty</p>
+            </div>
+            <div class="p-4 border-t">
+                <div class="flex justify-between mb-4">
+                    <span>Total:</span>
+                    <span id="cartTotal">$0.00</span>
+                </div>
+                <button id="checkoutBtn" class="bg-amber-700 hover:bg-amber-800 text-white px-4 py-2 rounded-full w-full transition">
+                    Proceed to Checkout
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const cart = [];
+            const categoryBtns = document.querySelectorAll('.category-btn');
+            const foodCards = document.querySelectorAll('.food-card');
+            const cartBtn = document.getElementById('cartBtn');
+            const cartModal = document.getElementById('cartModal');
+            const closeCart = document.getElementById('closeCart');
+            const cartItems = document.getElementById('cartItems');
+            const cartTotal = document.getElementById('cartTotal');
+            const cartCount = document.getElementById('cartCount');
+            
+// Filtrado por categoría
+categoryBtns.forEach(btn => {
+    btn.addEventListener('click', function() {
+        // Quitar activo de todos
+        categoryBtns.forEach(b => b.classList.remove('active'));
+        // Activar el actual
+        this.classList.add('active');
+
+        const category = this.dataset.category;
+
+        // Mostrar/ocultar tarjetas
+        foodCards.forEach(card => {
+            card.style.display = (category === 'all' || card.dataset.category === category)
+                ? 'block' : 'none';
+        });
+
+        // Scroll con compensación para dejar visible el título
+        if (category !== 'all') {
+            const target = document.getElementById(category);
+            if (target) {
+                const yOffset = -100; // ⬅️ añadido: margen superior para el menú sticky
+                const y = target.getBoundingClientRect().top + window.pageYOffset + yOffset;
+                window.scrollTo({ top: y, behavior: 'smooth' });
+            }
+        } else {
+            // Volver al inicio del menú
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    });
+});
+            
+
+            
+            // Smooth scroll for menu sections
+            document.querySelectorAll('nav a').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+        });
+    </script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    const wrapper = document.querySelector(".menu-wrapper");
+    const inner = document.querySelector(".menu-inner");
+    const offsetTop = wrapper.offsetTop;
+
+    // ocultar scrollbar
+    wrapper.style.overflow = "hidden";
+
+    // estilos para scroll horizontal
+    inner.style.display = "flex";
+    inner.style.flexWrap = "nowrap";
+    inner.style.overflowX = "auto";
+    inner.style.scrollBehavior = "smooth";
+    inner.style.webkitOverflowScrolling = "touch"; // iOS
+    inner.style.padding = "0.5rem";
+    
+    // ocultar scrollbar en Webkit
+    const style = document.createElement('style');
+    style.innerHTML = `
+        .menu-inner::-webkit-scrollbar { display: none; }
+        .category-btn { transition: transform 0.2s, background-color 0.2s; }
+        .category-btn:hover { transform: scale(1.1); }
+    `;
+    document.head.appendChild(style);
+
+    // efecto sticky con glass
+    window.addEventListener("scroll", () => {
+        if (window.scrollY >= offsetTop) {
+            wrapper.style.position = "fixed";
+            wrapper.style.top = "0";
+            wrapper.style.left = "0";
+            wrapper.style.right = "0";
+            wrapper.style.backgroundColor = "rgba(255, 255, 255, 0.3)";
+            wrapper.style.backdropFilter = "blur(10px) saturate(180%)";
+            wrapper.style.webkitBackdropFilter = "blur(10px) saturate(180%)";
+            wrapper.style.zIndex = "1000";
+            wrapper.style.transition = "all 0.3s ease";
+        } else {
+            wrapper.style.position = "";
+            wrapper.style.top = "";
+            wrapper.style.left = "";
+            wrapper.style.right = "";
+            wrapper.style.backgroundColor = "";
+            wrapper.style.backdropFilter = "";
+            wrapper.style.webkitBackdropFilter = "";
+            wrapper.style.zIndex = "";
+        }
+    });
+});
+</script>
+</body>
+</html>
+
